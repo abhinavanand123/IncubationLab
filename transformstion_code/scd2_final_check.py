@@ -145,14 +145,14 @@ class Transformation:
         source_df = source_df.select(*columns_needed_source)
 
         try:
-            targetTable = DeltaTable.forPath(spark,lookup_location+datasetName)(update)
+            targetTable = DeltaTable.forPath(spark,lookup_location+datasetName)
             delta_df = targetTable.toDF()
         except pyspark.sql.utils.AnalysisException:
             print('Table not found')
             source_df = source_df.withColumn("active_flag",f.lit("true"))
             source_df.write.format("delta").mode("overwrite").save(lookup_location+datasetName)
             print('Table Created')
-            targetTable = DeltaTable.forPath(spark,lookup_location+datasetName)(update)
+            targetTable = DeltaTable.forPath(spark,lookup_location+datasetName)
             delta_df = targetTable.toDF()
 
         for i in columns_needed:
@@ -173,7 +173,8 @@ class Transformation:
 
         targetTable.alias(datasetName).merge(stagedUpdates.alias("updates"),"concat("+str(column)+") = mergeKey").whenMatchedUpdate(
             condition = _condition,
-            set = {                  # Set current to false and endDate to source's effective date."active_flag" : "False",
+            set = { 
+            "active_flag" : "false",# Set current to false and endDate to source's effective date."active_flag" : "False",
             "update_date" : f.current_date()
           }
         ).whenNotMatchedInsert(
