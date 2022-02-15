@@ -41,7 +41,7 @@ def create_cluster(region_name, cluster_name='AbhinavA_Cluster_' + str(datetime.
             'EmrManagedMasterSecurityGroup': emr_master_security_group_id,
             'EmrManagedSlaveSecurityGroup': emr_slave_security_group_id
         },
-        "BootstrapActions" = [
+        BootstrapActions = [
                 {
                     'Name': 'Install boto3',
                     'ScriptBootstrapAction': {
