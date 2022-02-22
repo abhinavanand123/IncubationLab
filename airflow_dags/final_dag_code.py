@@ -56,7 +56,7 @@ def pre_validation(**kwargs):
         raise ValueError("No Data Available in the file")
 
 
-# Creates an EMR  cluster
+# Creates an EMR cluster
 def livy_submit(**kwargs):
     spark_config_path = kwargs['dag_run'].conf['spark_config_path']
     final_code_path = kwargs['dag_run'].conf['final_code_path']
