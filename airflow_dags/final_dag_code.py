@@ -107,7 +107,7 @@ def post_validation(**kwargs):
 dag_args = {
     'owner': 'airflow',
     'depends_on_past': False,
-    'start_date': datetime(2022, 2, 20),
+    'start_date': datetime(2022, 2, 22),
     'email': ['abhinav.anand@tigeranalytics.com'],
     'email_on_failure': True,
     'email_on_retry': True,
@@ -116,7 +116,7 @@ dag_args = {
     }
 dag = DAG(
     dag_id='final_airflow_dag',
-    start_date=datetime(2022, 2, 20),
+    start_date=datetime(2022, 2, 22),
     default_args=dag_args,
     concurrency=3,
     end_date=None,
